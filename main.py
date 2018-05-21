@@ -6,7 +6,7 @@ import torch
 import torch.nn as nn
 import torch.optim as optim
 
-from util.process_data import load_processed_json, load_glove_weights
+from util.process_data import load_processed_json, load_glove_weights, DataSet
 from model.BiDAF import BiDAF
 from util.ema import EMA
 from train import Trainer
