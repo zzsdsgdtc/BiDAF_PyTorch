@@ -25,8 +25,8 @@ args = parser.parse_args()
 
 # loading data
 home = os.path.expanduser("~")
-train_json, train_shared_json = load_processed_json('~/data/squad/data_train.json', '~/data/squad/shared_train.json')
-test_json, test_shared_json = load_processed_json('~/data/squad/data_test.json', '~/data/squad/shared_test.json')
+train_json, train_shared_json = load_processed_json('./data/squad/data_train.json', './data/squad/shared_train.json')
+test_json, test_shared_json = load_processed_json('./data/squad/data_test.json', './data/squad/shared_test.json')
 train_data = DataSet(train_json, train_shared_json)
 test_data = DataSet(test_json, test_shared_json)
 
