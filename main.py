@@ -20,7 +20,7 @@ parser.add_argument('--word_embd_dim', type=int, default=100, help='word embeddi
 parser.add_argument('--char_embd_dim', type=int, default=8, help='character embedding size')
 parser.add_argument('--start_epoch', type=int, default=0, help='resume epoch count, default=0')
 parser.add_argument('--test', type=bool, default=False, help='True to enter test mode')
-parser.add_argument('--resume', default='~/checkpoints', type=str, metavar='PATH', help='path of saved params')
+parser.add_argument('--resume', default='~/checkpoints/Epoch-11.model', type=str, metavar='PATH', help='path of saved params')
 args = parser.parse_args()
 
 # loading data
