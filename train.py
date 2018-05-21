@@ -9,7 +9,7 @@ import datetime
 from util.process_data import get_idx_tensor, DataSet
 
 class Trainer(object):
-	def __init__(self, model, data, w2i, c2i, optimizer, ema, epoch, starting_epoch = 0, batch_size):
+	def __init__(self, model, data, w2i, c2i, optimizer, ema, epoch, starting_epoch, batch_size):
 		self.model = model
 		self.data = data
 		self.optimizer = optimizer
