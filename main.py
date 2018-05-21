@@ -100,7 +100,7 @@ def main(args):
 		trainer = Trainer(model, train_data, w2i, c2i, optimizer, ema, args.epoch, args.start_epoch, args.batch_size)
 		trainer.train()
 
-print("starting main()........")
+print("starting main()........\n\n")
 main(args)
 # if __name__ == "__main__":
 #     main(args)
