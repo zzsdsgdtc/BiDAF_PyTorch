@@ -9,7 +9,7 @@ class CharEmbed(nn.Module):
      Out: (N, sentence_len, c_embd_size)
      '''
     def __init__(self, args):
-        super(CharEmbedding, self).__init__()
+        super(CharEmbed, self).__init__()
         self.embd_size = args.c_embd_size
         self.embedding = nn.Embedding(args.char_vocab_size, args.char_embd_dim)
         # nn.Conv1d(in_channels, out_channels, kernel_size, stride=1, padding=0, ...
