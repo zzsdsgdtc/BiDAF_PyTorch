@@ -45,9 +45,9 @@ class BiDAF(nn.Module):
                       
         # 6. Output Layer
         concat_GM = torch.cat((G, M), 2)
-        p1 = F.softmax(self.startIdx(concat_GM).squeeze(), dim = 1)
+        p1 = F.softmax(self.startIdx(concat_GM).squeeze(), dim = -1)
         
         M2, _ = self.endIdx_lstm(M)
         concat_GM2 = torch.cat((G, M2), 2)
-        p2 = F.softmax(self.endIdx(concat_GM2).squeeze(), dim = 1)        
+        p2 = F.softmax(self.endIdx(concat_GM2).squeeze(), dim = -1)        
         return p1, p2
