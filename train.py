@@ -45,7 +45,7 @@ class Trainer(object):
 				# forward
 				ans_start = answer[:, 0]
 				ans_end = answer[:, 1] - 1
-				p1, p2 = model(ctx_word_lv, ctx_char_lv, query_word_lv, query_char_lv)
+				p1, p2 = self.model(ctx_word_lv, ctx_char_lv, query_word_lv, query_char_lv)
 				loss_p1 = nn.NLLLoss(p1, ans_start)
 				loss_p2 = nn. NLLLoss(p2, ans_end)
 				loss = loss_p1 + loss_p2
