@@ -24,6 +24,7 @@ parser.add_argument('--resume', default='~/checkpoints/Epoch-11.model', type=str
 args = parser.parse_args()
 
 # loading data
+print("loading data.....\n\n")
 home = os.path.expanduser("~")
 train_json, train_shared_json = load_processed_json('./data/squad/data_train.json', './data/squad/shared_train.json')
 test_json, test_shared_json = load_processed_json('./data/squad/data_test.json', './data/squad/shared_test.json')
@@ -99,6 +100,7 @@ def main(args):
 		trainer = Trainer(model, train_data, w2i, c2i, optimizer, ema, args.epoch, args.start_epoch, args.batch_size)
 		trainer.train()
 
+print("starting main()........")
 main(args)
 # if __name__ == "__main__":
 #     main(args)
