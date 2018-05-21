@@ -18,7 +18,7 @@ class BiDAF(nn.Module):
         self.attn_embd_model  = AttnEmbed(self.d)
         self.modeling = nn.GRU(8 * self.d, self.d, num_layers = 2, dropout = 0.2, bidirectional = True, batch_first = True)
         self.startIdx = nn.Linear(10 * self.d, 1, bias = False)
-        self.endIdx_lstm = nn.GRU(2 * self.d, 2 * self.d, dropout = 0.2, bidirectional = True, batch_first = True)
+        self.endIdx_lstm = nn.GRU(2 * self.d, self.d, dropout = 0.2, bidirectional = True, batch_first = True)
         self.endIdx = nn.Linear(10 * self.d, 1, bias = False)
         
     def _contextualEmbed(self, char_lv, word_lv):
