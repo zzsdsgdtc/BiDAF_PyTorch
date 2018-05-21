@@ -7,14 +7,14 @@ import torch.nn as nn
 import torch.optim as optim
 
 from util.process_data import load_processed_json, load_glove_weights
-from model.bidaf import BiDAF
+from model.BiDAF import BiDAF
 from util.ema import EMA
 from train import Trainer
 
 # cmd parser
 parser = argparse.ArgumentParser()
-parser.add_argument('--epoch', type=int, default=60, help='num of epoch to run')
-parser.add_argument('--batch_size', type=int, default=20, help='input batch size')
+parser.add_argument('--epoch', type=int, default=12, help='num of epoch to run')
+parser.add_argument('--batch_size', type=int, default=60, help='input batch size')
 parser.add_argument('--lr', type=float, default=0.5, help='learning rate, default=0.5')
 parser.add_argument('--word_embd_dim', type=int, default=100, help='word embedding size')
 parser.add_argument('--char_embd_dim', type=int, default=8, help='character embedding size')
@@ -97,5 +97,6 @@ def main(args):
 		trainer = Trainer(model, train_data, w2i, c2i, optimizer, ema, args.epoch, args.start_epoch, args.batch_size)
 		trainer.train()
 
-if __name__ == "__main__":
-    main(args)
+main(args)
+# if __name__ == "__main__":
+#     main(args)
