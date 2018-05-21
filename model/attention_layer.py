@@ -4,7 +4,7 @@ import torch.nn.functional as F
 
 class AttnEmbed(nn.Module):
 	def __init__(self, input_dim):
-		super(AttnEmbed. self).__init__()
+		super(AttnEmbed, self).__init__()
 		self.scalar_fun = nn.Linear(6 * input_dim, 1, bias = False)
 
 	def forward(self, ctx_embd, query_embd):
