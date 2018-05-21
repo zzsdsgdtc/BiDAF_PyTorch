@@ -1,6 +1,8 @@
 import argparse
 import json
 import os
+# import sys 
+# sys.path.append("/Users/zishengzhang//Courses/291G_NLP/pj/BiDAF_codes/BiDAF_PyTorch/squad")
 # data: q, cq, (dq), (pq), y, *x, *cx
 # shared: x, cx, (dx), (px), word_counter, char_counter, word2vec
 # no metadata
@@ -18,7 +20,7 @@ def main():
 
 def get_args():
     parser = argparse.ArgumentParser()
-    home = os.path.expanduser("~") + '/Courses/291G_NLP/pj/BiDAF_codes'
+    home = os.path.expanduser("~")
     source_dir = os.path.join(home, "data", "squad")
     target_dir = "data/squad"
     glove_dir = os.path.join(home, "data", "glove")
