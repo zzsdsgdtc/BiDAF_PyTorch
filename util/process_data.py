@@ -7,6 +7,10 @@ import random
 import torch
 from torch.autograd import Variable
 
+NULL = "-NULL-"
+UNK = "-UNK-"
+ENT = "-ENT-"
+
 def lower_list(str_list):
     return [str_var.lower() for str_var in str_list]
 
