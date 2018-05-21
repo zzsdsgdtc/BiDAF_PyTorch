@@ -61,8 +61,7 @@ class Trainer(object):
 
 					EM_info = "p1 EM: {:.3f}% ({}/{}), p2 EM: {:.3f}% ({}/{})"
 					print(EM_info.format(100 * p1_EM / num_data_processed, p1_EM, num_data_processed,
-										 100 * p2_EM / num_data_processed, p2_EM, num_data_processed)
-
+										 100 * p2_EM / num_data_processed, p2_EM, num_data_processed))
 
 				# backward
 				self.optimizer.zero_grad()
