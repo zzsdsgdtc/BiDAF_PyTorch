@@ -20,12 +20,13 @@ parser.add_argument('--word_embd_dim', type=int, default=100, help='word embeddi
 parser.add_argument('--char_embd_dim', type=int, default=8, help='character embedding size')
 parser.add_argument('--start_epoch', type=int, default=0, help='resume epoch count, default=0')
 parser.add_argument('--test', type=bool, default=False, help='True to enter test mode')
-parser.add_argument('--resume', default='../checkpoints', type=str, metavar='PATH', help='path of saved params')
+parser.add_argument('--resume', default='~/checkpoints', type=str, metavar='PATH', help='path of saved params')
 args = parser.parse_args()
 
 # loading data
-train_json, train_shared_json = load_processed_json('../data/squad/data_train.json', '../data/squad/shared_train.json')
-test_json, test_shared_json = load_processed_json('../data/squad/data_test.json', '../data/squad/shared_test.json')
+home = os.path.expanduser("~")
+train_json, train_shared_json = load_processed_json('~/data/squad/data_train.json', '~/data/squad/shared_train.json')
+test_json, test_shared_json = load_processed_json('~/data/squad/data_test.json', '~/data/squad/shared_test.json')
 train_data = DataSet(train_json, train_shared_json)
 test_data = DataSet(test_json, test_shared_json)
 
@@ -47,7 +48,7 @@ c2i[UNK] = 1
 c2i[ENT] = 2
 
 # load pre-trained GloVe
-glove = torch.from_numpy(load_glove_weights('../data/glove', args.w_embd_size, len(w2i), w2i)).type(torch.FloatTensor)
+glove = torch.from_numpy(load_glove_weights('~/data/glove', args.w_embd_size, len(w2i), w2i)).type(torch.FloatTensor)
 
 # set up arguments
 args.word_vocab_size = len(w2i)
