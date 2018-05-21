@@ -10,7 +10,7 @@ class CharEmbed(nn.Module):
      '''
     def __init__(self, args):
         super(CharEmbed, self).__init__()
-        self.embd_size = args.c_embd_size
+        self.embd_size = args.char_embd_dim
         self.embedding = nn.Embedding(args.char_vocab_size, args.char_embd_dim)
         # nn.Conv1d(in_channels, out_channels, kernel_size, stride=1, padding=0, ...
         self.conv = nn.ModuleList([nn.Conv2d(1, args.out_chs, (f[0], f[1])) for f in args.filters])
