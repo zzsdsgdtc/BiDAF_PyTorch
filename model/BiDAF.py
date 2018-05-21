@@ -34,8 +34,8 @@ class BiDAF(nn.Module):
         # 1. Character Embedding Layer
         # 2. Word Embedding Layer
         # 3. Contexual Embedding Layer
-        ctx_embding = _contextualEmbed(ctx_sent_char, ctx_sent_word)
-        query_embding = _contextualEmbed(query_char, query_word)
+        ctx_embding = self._contextualEmbed(ctx_sent_char, ctx_sent_word)
+        query_embding = self._contextualEmbed(query_char, query_word)
         
         # 4. Attention Flow layer
         G = self.attn_embd_model(ctx_embding, query_embding)
