@@ -48,7 +48,8 @@ c2i[UNK] = 1
 c2i[ENT] = 2
 
 # load pre-trained GloVe
-glove = torch.from_numpy(load_glove_weights('~/data/glove', args.word_embd_dim, len(w2i), w2i)).type(torch.FloatTensor)
+glove_path = os.path.join(home, "data", "glove")
+glove = torch.from_numpy(load_glove_weights(glove_path, args.word_embd_dim, len(w2i), w2i)).type(torch.FloatTensor)
 
 # set up arguments
 args.word_vocab_size = len(w2i)
