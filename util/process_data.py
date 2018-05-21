@@ -7,75 +7,8 @@ import random
 import torch
 from torch.autograd import Variable
 
-# TODO global
-NULL = "-NULL-"
-UNK = "-UNK-"
-ENT = "-ENT-"
-
-
-def save_pickle(d, path):
-    print('save pickle to', path)
-    with open(path, mode='wb') as f:
-        pickle.dump(d, f)
-
-
-def load_pickle(path):
-    print('load', path)
-    with open(path, mode='rb') as f:
-        return pickle.load(f)
-
-
 def lower_list(str_list):
     return [str_var.lower() for str_var in str_list]
-
-
-def load_task(dataset_path):
-    ret_data = []
-    ctx_max_len = 0 # character level length
-    with open(dataset_path) as f:
-        data = json.load(f)
-        ver = data['version']
-        print('dataset version:', ver)
-        data = data['data']
-        for i, d in enumerate(data):
-            if i % 100 == 0:
-                print('load_task:', i, '/', len(data))
-            # print('load', d['title'], i, '/', len(data))
-            for p in d['paragraphs']:
-                if len(p['context']) > ctx_max_len:
-                    ctx_max_len = len(p['context'])
-                c = word_tokenize(p['context'])
-                cc = [list(w) for w in c]
-                q, a = [], []
-                for qa in p['qas']:
-                    q = word_tokenize(qa['question'])
-                    qc = [list(w) for w in q]
-                    a = [ans['text'] for ans in qa['answers']]
-                    a_beg = [ans['answer_start'] for ans in qa['answers']]
-                    a_end = [ans['answer_start'] + len(ans['text']) for ans in qa['answers']]
-                    ret_data.append((c, cc, qa['id'], q, qc, a, a_beg, a_end)) # TODO context redandancy
-    return ret_data, ctx_max_len
-
-
-def load_processed_data(fpath):
-    ctx_max_len = 0 # character level length
-    with open(fpath) as f:
-        lines = f.readlines()
-        data = []
-        for l in lines:
-            c_label, c, q, a, a_txt = l.rstrip().split('\t')
-            if len(c) > ctx_max_len:
-                ctx_max_len = len(c)
-            c, q, a = c.split(' '), q.split(' '), a.split(' ')
-            # if len(c) > 30: continue # TMP
-            c, q = lower_list(c), lower_list(q)
-            cc = [list(w) for w in c]
-            qc = [list(w) for w in q]
-            a = [int(aa) for aa in a]
-            a = [a[0], a[-1]]
-            data.append((c_label, c, cc, q, qc, a, a_txt))
-    return data, ctx_max_len
-
 
 def load_processed_json(fpath_data, fpath_shared):
     # shared ------------
@@ -105,7 +38,7 @@ def load_processed_json(fpath_data, fpath_shared):
 
 def load_glove_weights(glove_dir, embd_dim, vocab_size, word_index):
     embeddings_index = {}
-    with open(os.path.join(glove_dir, 'glove.6B.' + str(embd_dim) + 'd.txt')) as f:
+    with open(os.path.join(glove_dir, 'glove.6B.' + str(embd_dim) + 'd.txt'), encoding='utf-8') as f:
         for line in f:
             values = line.split()
             word = values[0]
@@ -131,10 +64,6 @@ def to_var(x):
     if torch.cuda.is_available():
         x = x.cuda()
     return Variable(x)
-
-
-def to_np(x):
-    return x.data.cpu().numpy()
 
 
 def _word_padding(sentence, w2i, seq_len):
