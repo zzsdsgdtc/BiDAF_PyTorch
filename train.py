@@ -65,9 +65,9 @@ class Trainer(object):
 
 
 				# backward
-				optimizer.zero_grad()
+				self.optimizer.zero_grad()
 				loss.backward()
-				optimizer.step()
+				self.optimizer.step()
 				for name, parameter in model.named_parameters():
 					if parameter.requires_grad:
 						parameter.data = ema(name, parameter,data)
@@ -79,7 +79,9 @@ class Trainer(object):
 			filename = '{}/Epoch-{}.model'.format('../checkpoints', epoch)
 			torch.save({'epoch': epoch + 1, 
 						'state_dict': model.state_dict(), 
-						'optimizer': optimizer.state_dict()
+						'optimizer': optimizer.state_dict(),
+						'p1_EM': 100 * p1_EM / num_data_processed,
+						'p2_EM': 100 * p2_EM / num_data_processed
 						}, filename=filename)
 
 
