@@ -18,6 +18,7 @@ class Trainer(object):
 		self.start_from = starting_epoch
 		self.word_to_index = w2i
 		self.char_to_index = c2i
+		self.batch_size = batch_size
 
 	def train(self):
 		self.model.train()
