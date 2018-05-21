@@ -48,12 +48,13 @@ c2i[UNK] = 1
 c2i[ENT] = 2
 
 # load pre-trained GloVe
-glove = torch.from_numpy(load_glove_weights('~/data/glove', args.w_embd_size, len(w2i), w2i)).type(torch.FloatTensor)
+glove = torch.from_numpy(load_glove_weights('~/data/glove', args.word_embd_dim, len(w2i), w2i)).type(torch.FloatTensor)
 
 # set up arguments
 args.word_vocab_size = len(w2i)
 args.char_vocab_size = len(c2i)
-pretrained_embd = glove
+args.pretrained = True
+args.pretrained_embd = glove
 ## for CNN
 args.filters = [[1, 5]]
 args.out_chs = 100
