@@ -66,7 +66,8 @@ def main(args):
 	if torch.cuda.is_available():
 		model.cuda()
 
-	optimizer = optim.Adadelta(filter(lambda p: p.requires_grad, model.parameters()), lr = args.lr)
+	# optimizer = optim.Adadelta(filter(lambda p: p.requires_grad, model.parameters()), lr = args.lr)
+	optimizer = torch.optim.Adam(filter(lambda p: p.requires_grad, model.parameters()))
 
 	# check if resume
 	if os.path.isfile(args.resume):
