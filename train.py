@@ -71,7 +71,7 @@ class Trainer(object):
 				self.optimizer.step()
 				for name, parameter in self.model.named_parameters():
 					if parameter.requires_grad:
-						parameter.data = ema(name, parameter,data)
+						parameter.data = self.ema(name, parameter.data)
 
 			# end of one epoch
 			print(">>>>>>>>>>>>>Epoch", epoch, "result")

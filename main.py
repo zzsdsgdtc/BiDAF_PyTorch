@@ -81,7 +81,7 @@ def main(args):
 
 	# exponential moving average
 	ema = EMA(0.999)
-	for name, parameter in self.model.named_parameters():
+	for name, parameter in model.named_parameters():
 		if parameter.requires_grad:
 			ema.register(name, parameter.data)
 
