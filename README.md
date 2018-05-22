@@ -13,7 +13,7 @@ python -m squad.prepro
 # 2. Train
 python main.py --batch_size 30
 
-Note that the suggested batch_size is 60 in paper, however 60 will cause cude out of memory
+Note that the suggested batch_size is 60 in paper, however 60 will cause cuda out of memory
 
 # 3. Other arguments supported for now
 parser.add_argument('--epoch', type=int, default=12, help='num of epoch to run')
