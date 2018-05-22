@@ -28,7 +28,7 @@ class BiDAF(nn.Module):
         word_embding = self.word_embd_model(word_lv)
         concat = torch.cat((char_embding, word_embding), 2)
         highway_embding = self.highway_model(concat)
-        self.ctx_embd_model.flatten_parameters()
+        # self.ctx_embd_model.flatten_parameters()
         ctx_embd, _ = self.ctx_embd_model(highway_embding)
         ctx_embd = self.dropout(ctx_embd)
         return ctx_embd
@@ -44,14 +44,14 @@ class BiDAF(nn.Module):
         G = self.attn_embd_model(ctx_embding, query_embding)
         
         # 5. Modeling Layer
-        self.modeling.flatten_parameters()
+        # self.modeling.flatten_parameters()
         M, _ = self.modeling(G)
             
         # 6. Output Layer
         concat_GM = torch.cat((G, M), 2)
         p1 = F.softmax(self.startIdx(concat_GM).squeeze(), dim = -1)
         
-        self.endIdx_lstm.flatten_parameters()
+        # self.endIdx_lstm.flatten_parameters()
         M2, _ = self.endIdx_lstm(M)
         M2 = self.dropout(M2)
         concat_GM2 = torch.cat((G, M2), 2)
