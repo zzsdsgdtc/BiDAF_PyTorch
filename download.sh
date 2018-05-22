@@ -2,6 +2,7 @@
 
 DATA_DIR=$HOME/data
 mkdir $DATA_DIR
+mkdir $HOME/checkpoints
 
 # Download SQuAD
 SQUAD_DIR=$DATA_DIR/squad
