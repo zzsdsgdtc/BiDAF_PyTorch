@@ -20,7 +20,7 @@ class Trainer(object):
 		self.char_to_index = c2i
 		self.batch_size = batch_size
 
-	def _custom_loss_fn(data, labels):
+	def _custom_loss_fn(self, data, labels):
 	    loss = Variable(torch.zeros(1))
 	    for d, label in zip(data, labels):
 	        loss -= torch.log(d[label]).cpu()
