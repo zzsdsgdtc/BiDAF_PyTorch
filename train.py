@@ -28,7 +28,7 @@ class Trainer(object):
 			batches = self.data.get_batches(self.batch_size, shuffle = True)
 			p1_EM, p2_EM = 0, 0
 			num_data_processed = 0
-			for i, batch in enumerate(batches):
+			for i, batch in enumerate(tqdm(batches)):
 				# each batch consists of tuples of (ctx_word_lv, ctx_char_lv, query_word_lv, query_char_lv, answer)
 				max_ctx_sent_len = max([len(tupl[0]) for tupl in batch])
 				max_ctx_word_len = max([len(word) for tupl in batch for word in tupl[1]])
@@ -69,7 +69,7 @@ class Trainer(object):
 				self.optimizer.zero_grad()
 				loss.backward()
 				self.optimizer.step()
-				for name, parameter in model.named_parameters():
+				for name, parameter in self.model.named_parameters():
 					if parameter.requires_grad:
 						parameter.data = ema(name, parameter,data)
 
