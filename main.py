@@ -81,7 +81,7 @@ def main(args):
 		print(">>>>>>>>>>>>> no checkpoint found at '{}'".format(args.resume))
 
 	# exponential moving average
-	ema = EMA(0.999)
+	ema = EMA(0.001)
 	for name, parameter in model.named_parameters():
 		if parameter.requires_grad:
 			ema.register(name, parameter.data)
