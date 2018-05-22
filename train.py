@@ -29,7 +29,7 @@ class Trainer(object):
 
 	def train(self):
 		self.model.train()
-		loss_func = nn.NLLLoss()
+		loss_func = nn.CrossEntropyLoss()
 		for epoch in tqdm(range(self.start_from, self.num_epoch)):
 			print(">>>>>>>>>>>>>Processing epoch:", epoch)
 			batches = self.data.get_batches(self.batch_size, shuffle = True)
@@ -92,6 +92,6 @@ class Trainer(object):
 						'optimizer': self.optimizer.state_dict(),
 						'p1_EM': 100 * p1_EM / num_data_processed,
 						'p2_EM': 100 * p2_EM / num_data_processed
-						}, filename=filename)
+						}, filename)
 
 
