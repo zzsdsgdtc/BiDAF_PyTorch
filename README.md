@@ -32,9 +32,9 @@ parser.add_argument('--test', type=bool, default=False, help='True to enter test
 
 parser.add_argument('--resume', default='~/checkpoints/Epoch-11.model', type=str, metavar='PATH', help='path of saved params')
 
-# 4. Results for now (after 7 epoch) (only in training set for now)
-starting index EM: 63.325%
+# 4. Results for now (after 12 epoch) (only in training set for now)
+starting index EM: 65.311%
 
-end index EM: 24.650%
+end index EM: 25.431%
 
-This EM doesn't represent the resulting EM in the paper
+This EM doesn't represent the resulting EM in the paper. And from results there must be bugs in codes
