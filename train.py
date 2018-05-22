@@ -29,7 +29,7 @@ class Trainer(object):
 
 	def train(self):
 		self.model.train()
-		# loss_func = nn.NLLLoss()
+		loss_func = nn.NLLLoss()
 		for epoch in tqdm(range(self.start_from, self.num_epoch)):
 			print(">>>>>>>>>>>>>Processing epoch:", epoch)
 			batches = self.data.get_batches(self.batch_size, shuffle = True)
@@ -54,10 +54,10 @@ class Trainer(object):
 				ans_start = answer[:, 0]
 				ans_end = answer[:, 1] - 1
 				p1, p2 = self.model(ctx_word_lv, ctx_char_lv, query_word_lv, query_char_lv)
-				# loss_p1 = loss_func(p1, ans_start)
-				# loss_p2 = loss_func(p2, ans_end)
-				loss_p1 = _custom_loss_fn(p1, ans_start)
-				loss_p2 = _custom_loss_fn(p2, ans_end)
+				loss_p1 = loss_func(p1, ans_start)
+				loss_p2 = loss_func(p2, ans_end)
+				# loss_p1 = _custom_loss_fn(p1, ans_start)
+				# loss_p2 = _custom_loss_fn(p2, ans_end)
 				loss = loss_p1 + loss_p2
 				p1_EM += torch.sum(ans_start == torch.max(p1, 1)[1]).item()
 				p2_EM += torch.sum(ans_start == torch.max(p2, 1)[1]).item()
