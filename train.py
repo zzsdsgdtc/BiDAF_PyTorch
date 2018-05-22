@@ -79,9 +79,9 @@ class Trainer(object):
 				self.optimizer.zero_grad()
 				loss.backward()
 				self.optimizer.step()
-				# for name, parameter in self.model.named_parameters():
-				# 	if parameter.requires_grad:
-				# 		parameter.data = self.ema(name, parameter.data)
+				for name, parameter in self.model.named_parameters():
+					if parameter.requires_grad:
+						parameter.data = self.ema(name, parameter.data)
 
 			# end of one epoch
 			print(">>>>>>>>>>>>>Epoch", epoch, "result")
