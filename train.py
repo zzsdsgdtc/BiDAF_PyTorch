@@ -55,11 +55,11 @@ class Trainer(object):
 				num_data_processed += len(batch)
 
 				# print training process
-				if (i + 1) % 50 == 0:
+				if (i + 1) % 100 == 0:
 					loss_info = "[{}] Epoch {} completed {:.1f}%, loss_p1: {:.3f}, loss_p2: {:.3f}"
 					print(loss_info.format(datetime.datetime.now().strftime('%Y%m%d-%H%M%S'),
 										   epoch, 100 * i / len(batches),
-										   loss_p1.data[0], loss_p2.data[0]))
+										   loss_p1.item(), loss_p2.item()))
 
 					EM_info = "p1 EM: {:.3f}% ({}/{}), p2 EM: {:.3f}% ({}/{})"
 					print(EM_info.format(100 * p1_EM / num_data_processed, p1_EM, num_data_processed,
@@ -79,8 +79,8 @@ class Trainer(object):
 													    100 * p2_EM / num_data_processed))
 			filename = '{}/Epoch-{}.model'.format('~/checkpoints', epoch)
 			torch.save({'epoch': epoch + 1, 
-						'state_dict': model.state_dict(), 
-						'optimizer': optimizer.state_dict(),
+						'state_dict': self.model.state_dict(), 
+						'optimizer': self.optimizer.state_dict(),
 						'p1_EM': 100 * p1_EM / num_data_processed,
 						'p2_EM': 100 * p2_EM / num_data_processed
 						}, filename=filename)
