@@ -14,12 +14,13 @@ class BiDAF(nn.Module):
         self.char_embd_model = CharEmbed(args)
         self.word_embd_model = WordEmbed(args)
         self.highway_model = Highway(self.d)
-        self.ctx_embd_model = nn.GRU(self.d, self.d, dropout = 0.2, bidirectional = True, batch_first = True)
+        self.ctx_embd_model = nn.GRU(self.d, self.d, bidirectional = True, batch_first = True)
         self.attn_embd_model  = AttnEmbed(self.d)
         self.modeling = nn.GRU(8 * self.d, self.d, num_layers = 2, dropout = 0.2, bidirectional = True, batch_first = True)
         self.startIdx = nn.Linear(10 * self.d, 1, bias = False)
-        self.endIdx_lstm = nn.GRU(2 * self.d, self.d, dropout = 0.2, bidirectional = True, batch_first = True)
+        self.endIdx_lstm = nn.GRU(2 * self.d, self.d, bidirectional = True, batch_first = True)
         self.endIdx = nn.Linear(10 * self.d, 1, bias = False)
+        self.dropout = nn.Dropout(p = 0.2)
         
     def _contextualEmbed(self, char_lv, word_lv):
         # batch_first repr. i.e. (batch_size, seq_length, dim)
@@ -27,7 +28,8 @@ class BiDAF(nn.Module):
         word_embding = self.word_embd_model(word_lv)
         concat = torch.cat((char_embding, word_embding), 2)
         highway_embding = self.highway_model(concat)
-        ctx_embd, _ = self.ctx_embd_model(highway_embding)
+        ctx_embd, _h = self.ctx_embd_model(highway_embding)
+        ctx_embd = self.dropout(ctx_embd)
         return ctx_embd
         
     def forward(self, ctx_sent_word, ctx_sent_char, query_word, query_char):
@@ -41,13 +43,14 @@ class BiDAF(nn.Module):
         G = self.attn_embd_model(ctx_embding, query_embding)
         
         # 5. Modeling Layer
-        M, _ = self.modeling(G)
-                      
+        M, _h = self.modeling(G)
+            
         # 6. Output Layer
         concat_GM = torch.cat((G, M), 2)
         p1 = F.softmax(self.startIdx(concat_GM).squeeze(), dim = -1)
         
-        M2, _ = self.endIdx_lstm(M)
+        M2, _h = self.endIdx_lstm(M)
+        M2 = self.dropout(M2)
         concat_GM2 = torch.cat((G, M2), 2)
         p2 = F.softmax(self.endIdx(concat_GM2).squeeze(), dim = -1)        
         return p1, p2
